@@ -21,21 +21,11 @@ class Board {
     uint nRows;
     uint nCols;
     std::vector<std::vector<Soldier*>> board;
-    
   public:
     enum MoveDIR { Up, Down, Right, Left };
     
-    Board(uint numRows, uint numCols) : nRows(numRows), nCols(numCols),
-      board(numRows, std::vector<Soldier*>(numCols, nullptr)) {}
-    ~Board(){
-      //  for(int i = 0; i < nRows; i++){
-      //   for(int j = 0; j < nCols; j++){
-      //     if(board[i][j] != nullptr)
-      //       delete board[i][j];
-      //       board[i][j] = nullptr;
-      //   }
-      // }
-    }
+    Board(uint numRows, uint numCols) : 
+      board(numRows, std::vector<Soldier*>(numCols, nullptr)), nRows(numRows), nCols(numCols) {}
 
     // operator for putting soldiers on the game-board during initialization.
     Soldier*& operator[](std::pair<int,int> location);
@@ -58,6 +48,11 @@ class Board {
 
     // returns true iff the board contains one or more soldiers of the given player.
     bool has_soldiers(uint player_number) const;
+    
+    ~Board()
+    {
+      board.clear();
+    }
 };
 
 }
