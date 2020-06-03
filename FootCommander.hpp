@@ -6,7 +6,7 @@ class FootCommander  : public FootSoldier{
   FootCommander ();
 
   public:
-      FootCommander (uint p) : FootSoldier(150,20,p) {}
+      FootCommander (int p) : FootSoldier(150,20,p) {}
       ~FootCommander(){}
 
       void ability (const std::pair<int,int> source, std::vector<std::vector<Soldier*>>& b) override{

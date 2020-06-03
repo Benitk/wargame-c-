@@ -6,8 +6,8 @@ class Sniper : public Soldier{
   Sniper();
 
   public:
-      Sniper(uint h, uint a, uint p) : Soldier(h,a,p) {}
-      Sniper(uint p) : Soldier(100,50,p) {}
+      Sniper(int h, int a, int p) : Soldier(h,a,p) {}
+      Sniper(int p) : Soldier(100,50,p) {}
       ~Sniper(){}
       void ability (const std::pair<int,int> source, std::vector<std::vector<Soldier*>>& b) override{
         int player_num = b[source.first][source.second]->get_player();

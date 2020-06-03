@@ -13,7 +13,7 @@ namespace WarGame {
     
     void Board::move(uint player_number, std::pair<int,int> source, MoveDIR direction){
 
-      if(source.first < 0 || source.first > nRows || source.second < 0 || source.second > nCols)
+      if(source.first < 0 || source.first >= nRows || source.second < 0 || source.second >= nCols)
         throw std::invalid_argument("Invalid source.");
 
       if(this->operator[](source) == nullptr)
