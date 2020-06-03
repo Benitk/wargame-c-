@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Soldier.hpp"
+#include<bits/stdc++.h>
 
 class FootSoldier : public Soldier {
   FootSoldier();
@@ -11,26 +12,30 @@ class FootSoldier : public Soldier {
       ~FootSoldier(){}
       
       void ability (const std::pair<int,int> source, std::vector<std::vector<Soldier*>>& b) override{
+        double distance = INT_MAX;
+        int iMostHp = -1;
+        int jMostHp = -1;
         int player_num = b[source.first][source.second]->get_player();
-        for(int i = source.first-1; i <= source.first+1; i++){
-          for(int j = source.second-1; j <= source.second+1; j++){
-            if((i >= 0 && i < b.size()) && (j >= 0 && b[0].size())){
-            //try{
-              // dmg solider
+        for(int i = 0; i < b.size(); i++){
+          for(int j = 0; j <= b[0].size(); j++){
+              double d = sqrt(pow(i - source.first, 2) + pow(j - source.second, 2) * 1.0);
+
               if(b[i][j] != nullptr && (i != source.first || j != source.second) 
-                                    && b[i][j]->get_player() != player_num){
-                b[i][j]->set_healthBar(b[i][j]->get_healthBar()-b[source.first][source.second]->get_abilitystats());
-              
-                // remove solider from board
-                if(b[i][j]->get_healthBar() <= 0){
-                  delete b[i][j];
-                  b[i][j] = nullptr;
-                }
+                && b[i][j]->get_player() != player_num && distance > d){
+                  distance = d;
+                  iMostHp = i;
+                  jMostHp = j;
               }
-          //  }
-            // catch(std::exception& e){
-            // }
-            }
+        }
+      }
+              // if - checking validtion
+        if(iMostHp != -1 && jMostHp != -1){  
+          b[iMostHp][jMostHp]->set_healthBar(b[iMostHp][jMostHp]->get_healthBar()-b[source.first][source.second]->get_abilitystats());
+          // remove solider from board
+          if(b[iMostHp][jMostHp]->get_healthBar() <= 0){
+
+          delete b[iMostHp][jMostHp];
+          b[iMostHp][jMostHp] = nullptr;
         }
       }
 
